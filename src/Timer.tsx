@@ -5,19 +5,21 @@ import { FaStopCircle } from "react-icons/fa";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
 
-const Timer = () => {
-  const [timerOn, setTimerOn] = useState(false);
-  const [onBreak, setOnBreak] = useState(false);
-  const [displayTime, setDisplayTime] = useState(25 * 60);
-  const [timer, setTimer] = useState(null);
-  const [sessionDuration, setSessionDuration] = useState(25 * 60);
-  const [breakDuration, setBreakDuration] = useState(5 * 60);
+const dummyTimer = setInterval(() => {});
 
-  const formatTime = (time) => {
+const Timer: React.FC = () => {
+  const [timerOn, setTimerOn] = useState<boolean>(false);
+  const [onBreak, setOnBreak] = useState<boolean>(false);
+  const [displayTime, setDisplayTime] = useState<number>(25 * 60);
+  const [timer, setTimer] = useState<NodeJS.Timer>(dummyTimer);
+  const [sessionDuration, setSessionDuration] = useState<number>(25 * 60);
+  const [breakDuration, setBreakDuration] = useState<number>(5 * 60);
+
+  const formatTime = (time: number) => {
     return time < 10 ? "0" + time : time;
   };
 
-  const showTime = (displayTime) => {
+  const showTime = (displayTime: number) => {
     let min = Math.floor(displayTime / 60);
     let sec = displayTime % 60;
     return formatTime(min) + ":" + formatTime(sec);
@@ -62,7 +64,7 @@ const Timer = () => {
     setBreakDuration(5 * 60);
   };
 
-  const changeTime = (amount, type) => {
+  const changeTime = (amount: number, type: string) => {
     if (type === "break") {
       if (breakDuration <= 60 && amount < 0) {
         return;
