@@ -15,11 +15,11 @@ const Timer: React.FC = () => {
   const [sessionDuration, setSessionDuration] = useState<number>(25 * 60);
   const [breakDuration, setBreakDuration] = useState<number>(5 * 60);
 
-  const formatTime = (time: number) => {
+  const formatTime = (time: number): number | string => {
     return time < 10 ? "0" + time : time;
   };
 
-  const showTime = (displayTime: number) => {
+  const showTime = (displayTime: number): number | string => {
     let min = Math.floor(displayTime / 60);
     let sec = displayTime % 60;
     return formatTime(min) + ":" + formatTime(sec);
