@@ -1,8 +1,15 @@
 import React from "react";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 
-const Duration = ({ title, type, time, changeTime }) => {
-  const toMintues = (seconds) => {
+interface Props {
+  title: string;
+  type: string;
+  time: number;
+  changeTime: (amount: number, type: string) => void;
+}
+
+const Duration: React.FC<Props> = ({ title, type, time, changeTime }) => {
+  const toMintues = (seconds: number) => {
     return Math.floor(seconds / 60);
   };
   return (
