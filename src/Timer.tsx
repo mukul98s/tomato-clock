@@ -5,13 +5,11 @@ import { FaStopCircle } from "react-icons/fa";
 import { IoReloadCircleSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
 
-const dummyTimer = setInterval(() => {});
-
 const Timer: React.FC = () => {
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [onBreak, setOnBreak] = useState<boolean>(false);
   const [displayTime, setDisplayTime] = useState<number>(25 * 60);
-  const [timer, setTimer] = useState<NodeJS.Timer>(dummyTimer);
+  const [timer, setTimer] = useState<NodeJS.Timer>();
   const [sessionDuration, setSessionDuration] = useState<number>(25 * 60);
   const [breakDuration, setBreakDuration] = useState<number>(5 * 60);
 
@@ -26,7 +24,7 @@ const Timer: React.FC = () => {
   };
 
   const stop = () => {
-    clearInterval(timer);
+    timer && clearInterval(timer);
     setTimerOn(false);
   };
 
@@ -58,7 +56,7 @@ const Timer: React.FC = () => {
 
   const reset = () => {
     setDisplayTime(25 * 60);
-    clearInterval(timer);
+    timer && clearInterval(timer);
     setTimerOn(false);
     setSessionDuration(25 * 60);
     setBreakDuration(5 * 60);
