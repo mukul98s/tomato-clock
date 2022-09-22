@@ -1,11 +1,11 @@
 import Timer from "./Timer";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 
 const svgVariants = {
-  hidden: { rotate: -180 },
+  hidden: {rotate: -180},
   visible: {
     rotate: 0,
-    transition: { duration: 1 },
+    transition: {duration: 1},
   },
 };
 
@@ -49,9 +49,9 @@ function App() {
         </motion.svg>
       </div>
       <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        transition={{delay: 1}}
       >
         Tomato Clock
       </motion.h1>

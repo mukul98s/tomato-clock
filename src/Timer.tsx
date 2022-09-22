@@ -1,9 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Duration from "./Duration";
-import { AiFillPlayCircle } from "react-icons/ai";
-import { FaStopCircle } from "react-icons/fa";
-import { IoReloadCircleSharp } from "react-icons/io5";
-import { motion } from "framer-motion";
+import {AiFillPlayCircle} from "react-icons/ai";
+import {FaStopCircle} from "react-icons/fa";
+import {IoReloadCircleSharp} from "react-icons/io5";
+import {motion} from "framer-motion";
+
+const formatTime = (time: number): number | string => {
+  return time < 10 ? "0" + time : time;
+};
+
+const showTime = (displayTime: number): number | string => {
+  let min = Math.floor(displayTime / 60);
+  let sec = displayTime % 60;
+  return formatTime(min) + ":" + formatTime(sec);
+};
 
 const Timer: React.FC = () => {
   const [timerOn, setTimerOn] = useState<boolean>(false);
@@ -12,16 +22,6 @@ const Timer: React.FC = () => {
   const [timer, setTimer] = useState<NodeJS.Timer>();
   const [sessionDuration, setSessionDuration] = useState<number>(25 * 60);
   const [breakDuration, setBreakDuration] = useState<number>(5 * 60);
-
-  const formatTime = (time: number): number | string => {
-    return time < 10 ? "0" + time : time;
-  };
-
-  const showTime = (displayTime: number): number | string => {
-    let min = Math.floor(displayTime / 60);
-    let sec = displayTime % 60;
-    return formatTime(min) + ":" + formatTime(sec);
-  };
 
   const stop = () => {
     timer && clearInterval(timer);
@@ -83,10 +83,10 @@ const Timer: React.FC = () => {
     <div className="container">
       {!timerOn && (
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ height: 0 }}
-          transition={{ duration: 0.7 }}
+          initial={{opacity: 0, height: 0}}
+          animate={{opacity: 1, height: "auto"}}
+          exit={{height: 0}}
+          transition={{duration: 0.7}}
           className="duration"
         >
           <Duration
@@ -104,8 +104,8 @@ const Timer: React.FC = () => {
         </motion.div>
       )}
       <motion.div
-        initial={{ y: 1000, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{y: 1000, opacity: 0}}
+        animate={{y: 0, opacity: 1}}
         transition={{
           type: "spring",
           stiffness: 120,
@@ -119,8 +119,8 @@ const Timer: React.FC = () => {
       <div className="button-group">
         {!timerOn ? (
           <motion.button
-            initial={{ x: -1000, scale: 3 }}
-            animate={{ x: 0, scale: 1 }}
+            initial={{x: -1000, scale: 3}}
+            animate={{x: 0, scale: 1}}
             onClick={start}
             disabled={timerOn}
           >
@@ -128,16 +128,16 @@ const Timer: React.FC = () => {
           </motion.button>
         ) : (
           <motion.button
-            initial={{ x: -1000, scale: 3 }}
-            animate={{ x: 0, scale: 1 }}
+            initial={{x: -1000, scale: 3}}
+            animate={{x: 0, scale: 1}}
             onClick={stop}
           >
             <FaStopCircle /> Stop
           </motion.button>
         )}
         <motion.button
-          initial={{ x: 1000, scale: 3 }}
-          animate={{ x: 0, scale: 1 }}
+          initial={{x: 1000, scale: 3}}
+          animate={{x: 0, scale: 1}}
           onClick={reset}
           disabled={timerOn}
         >
