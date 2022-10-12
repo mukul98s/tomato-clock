@@ -2,6 +2,7 @@
   "name": "tomato-timer",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.ts",
   "dependencies": {
     "framer-motion": "^4.1.17",
     "react": "^17.0.2",
@@ -15,13 +16,20 @@
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.15",
     "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11"
+    "@types/react-dom": "^17.0.11",
+    "concurrently": "^7.4.0",
+    "electron": "^21.1.0",
+    "electron-builder": "^23.6.0",
+    "wait-on": "^6.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build": "PUBLIC_URL=/ react-scripts build",  
+    "build-electron": "react-scripts build",
+    "electron:start": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:build": "yarn build-electron && electron-builder build --publish never"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +48,32 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "homepage": "./",
+  "build": {
+    "appId": "com.tomato-timer.app",
+    "productName": "Tomato Timer",
+    "files": [
+      "build/**/*",
+      "electron/main.ts",
+      "package.json"
+    ],
+    "extends": null,
+    "linux": {
+      "target": "AppImage"
+      "type": "distribution",
+      "description": "This is a productivity application"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    }
   }
 }
